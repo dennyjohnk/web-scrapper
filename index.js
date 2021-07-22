@@ -8,7 +8,7 @@ var writer = csvWriter(); //Instantiate var
 var csvFilename = "./post.csv";
 
 writeStream.write(
-  `No , First Name , Last Name, Email, Company, Website, City ,Zip, Phone, Address \n`
+  `No , First Name , Last Name, Email, Company, Website, City ,Zip, Phone 1, 2, Address \n`
 );
 
 // If CSV file does not exist, create it and add the headers
@@ -31,7 +31,7 @@ if (!fs.existsSync(csvFilename)) {
 }
 
 fs.readFile(
-  "../Realtor Search _ Chicago Association of REALTORS®.html",
+  "../Realtor Search | Chicago Association of REALTORS®.html",
   "utf8",
   async function (err, html) {
     if (err) throw err;
@@ -41,7 +41,7 @@ fs.readFile(
       .map((x) => {
         return $(x);
       });
-    //console.log(rows[1]);
+    // console.log(rows[1]);
     let slNo = 0;
     for (const [item] of rows) {
       const firstName = $(item).eq(0).find("td").eq(1).text();
@@ -88,7 +88,7 @@ fs.readFile(
               .find("span")
               .each((index, elem) => {
                 let data = $1(elem).text();
-                addressStringHolder += data;
+                addressStringHolder = addressStringHolder  + data + " ";
               });
             fullAddress.push(addressStringHolder);
 
@@ -110,7 +110,8 @@ fs.readFile(
               .find("a")
               .each((index, elem) => {
                 var link = $2(elem).attr("href");
-                number += link + " ";
+                console.log(link)
+                number = number + link + (link.length >= 1 ? " ," : "");
               });
             phoneNumber.push(number);
             writer = csvWriter({
