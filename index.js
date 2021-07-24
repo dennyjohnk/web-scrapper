@@ -8,7 +8,7 @@ var writer = csvWriter(); //Instantiate var
 var csvFilename = "./post.csv";
 
 writeStream.write(
-  `No , First Name , Last Name, Email, Company, Website, City ,Zip, Phone 1, 2, Address \n`
+  `No , First Name , Last Name, Email, Company, Website, City ,Zip, Phone 1, Phone 2, Address \n`
 );
 
 // If CSV file does not exist, create it and add the headers
@@ -57,6 +57,9 @@ fs.readFile(
         .attr("href");
       let webAddress = "";
       const phoneNumber = [];
+      let phoneNumber1;
+      let phoneNumber2;
+
       const fullAddress = [];
       slNo++;
       console.log(slNo);
@@ -71,6 +74,7 @@ fs.readFile(
           return $(x);
         });
 
+
       for await (const [link] of address) {
         {
           try {
@@ -82,19 +86,16 @@ fs.readFile(
 
             //Get Address
             let $1 = cheerio.load(html);
-            let addressStringHolder = "";
             const t1 = $1(".agent_address")
               .eq(0)
               .find("span")
               .each((index, elem) => {
                 let data = $1(elem).text();
-                addressStringHolder = addressStringHolder  + data + " ";
+                fullAddress.push(data);
               });
-            fullAddress.push(addressStringHolder);
 
             //Get Website
             let $3 = cheerio.load(html);
-            let websiteString = "";
             const t3 = $3(".preview-contact-number")
               .eq(3)
               .find("a")
@@ -111,9 +112,10 @@ fs.readFile(
               .each((index, elem) => {
                 var link = $2(elem).attr("href");
                 console.log(link)
-                number = number + link + (link.length >= 1 ? " ," : "");
+                phoneNumber.push(link);
               });
-            phoneNumber.push(number);
+            phoneNumber1 = phoneNumber[0];
+            phoneNumber2 = phoneNumber[1];
             writer = csvWriter({
               sendHeaders: false,
             });
@@ -131,8 +133,9 @@ fs.readFile(
               header6: webAddress,
               header7: city,
               header8: zip,
-              header9: phoneNumber,
-              header10: fullAddress,
+              header9: phoneNumber1,
+              header10: phoneNumber2,
+              header11: fullAddress,
             });
             writer.end();
           } catch (e) {
