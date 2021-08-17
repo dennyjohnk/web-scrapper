@@ -15,19 +15,6 @@ writeStream.write(
 if (!fs.existsSync(csvFilename)) {
   writer = csvWriter();
   writer.pipe(fs.createWriteStream(csvFilename));
-  // writer.write({
-  //   header1: "SL No",
-  //   header2: "First Name",
-  //   header3: "Last Name",
-  //   header4: "Email",
-  //   header5: "Company",
-  //   header6: "Website",
-  //   header7: "City",
-  //   header8: "Zip",
-  //   header9: "Phone",
-  //   header10: "Address",
-  // });
-  // writer.end();
 }
 
 fs.readFile(
