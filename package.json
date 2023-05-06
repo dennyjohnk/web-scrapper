@@ -1,14 +1,14 @@
 {
-  "name": "program",
-  "version": "1.0.0",
-  "description": "",
+  "name": "web-scrapper",
+  "version": "1.0.1",
+  "description": "scrap html",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Denny John",
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.10",

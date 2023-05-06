@@ -32,7 +32,7 @@ fs.readFile(
   function (err, html) {
     if (err) throw err;
     var $ = cheerio.load(html);
-    $("tr")
+    $(".CoveoResult")
       .toArray()
       .map((item, index) => {
         const slNo = index;
