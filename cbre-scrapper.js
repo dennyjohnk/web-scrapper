@@ -64,7 +64,5 @@ fs.readFile(
             writer.end();
             index++;
         }
-
-
     }
 );
